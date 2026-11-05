@@ -9,4 +9,12 @@ jobs:
     steps:
       - name: Hello world
         run: echo "Welcome to github actions"
+
+      - name: Initialize application
+        run: echo "Initializing application"
+      - name: Build
+        run: echo "Building application"
+      - name: Deploy
+        run: echo "Deploy application"
+        
         
