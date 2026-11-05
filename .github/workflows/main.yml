@@ -16,5 +16,13 @@ jobs:
         run: echo "Building application"
       - name: Deploy
         run: echo "Deploy application"
+
+      - name: Check current directory
+        run: pwd
+      - name: Check linux user
+        run: whoami
+      - name: Check linux version
+        run: cat /etc/os-release
+        
         
         
