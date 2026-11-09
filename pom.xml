@@ -49,11 +49,11 @@
 
     <!-- GitHub Packages repository -->
     <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/${env.GITHUB_REPOSITORY}</url>
-        </repository>
-    </distributionManagement>
+    <repository>
+        <id>github</id>
+        <name>GitHub Packages</name>
+        <url>https://maven.pkg.github.com/vaisak1992/demo-actions</url>
+    </repository>
+</distributionManagement>
 
 </project>
