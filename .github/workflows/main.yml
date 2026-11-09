@@ -1,13 +1,16 @@
 
-name: Maven Build Pipeline
+name: Maven CI/CD Pipeline
+
 on:
   workflow_dispatch:
 
-# Jobs
-jobs:
-  build:
+permissions:
+  contents: read
+  packages: write
 
-    # Runner OS
+jobs:
+  build-test-deploy:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,17 +20,30 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Setup Java
-      - name: Set up JDK
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-          cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
-      # Step 3: Build using Maven
-      - name: Build with Maven
-        run: mvn clean package
+      # Step 3: Build application
+      - name: Maven Build
+        run: mvn clean compile
 
-      # Step 4: Run tests
-      - name: Run Maven Tests
+      # Step 4: Run unit tests
+      - name: Maven Test
         run: mvn test
+
+      # Step 5: Package application
+      - name: Maven Package
+        run: mvn package
+
+      # Step 6: Deploy to GitHub Packages
+      - name: Deploy to GitHub Packages
+        run: mvn deploy
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
